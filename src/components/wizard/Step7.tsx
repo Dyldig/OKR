@@ -8,6 +8,24 @@ import { WizardNav } from '../shared/WizardNav'
 export function Step7({ onBack, onNext }: { onBack: () => void; onNext: () => void }) {
   const { currentSession, updateSession } = useSessionStore()
   const person = currentSession ? getTeamMember(currentSession.personId) : null
+
+  // Keep hook before early return (rules of hooks)
+  useEffect(() => {
+    if (!currentSession || !person) return
+    const ids = Object.values(currentSession.focusAreas ?? {}).flat()
+    const objs = currentSession.objectives ?? {}
+    const types = currentSession.objTypes ?? {}
+    const missing = ids.filter(id => !objs[id])
+    if (missing.length > 0) {
+      const generated: Record<string, string> = {}
+      missing.forEach(id => {
+        const type = types[id] ?? 'improve'
+        generated[id] = getObjectiveText(id, type, currentSession.quarter)
+      })
+      updateSession({ objectives: { ...objs, ...generated } })
+    }
+  }, [])
+
   if (!person || !currentSession) return null
 
   const allFocusIds = Object.values(currentSession.focusAreas ?? {}).flat()
@@ -15,22 +33,9 @@ export function Step7({ onBack, onNext }: { onBack: () => void; onNext: () => vo
   const objTypes = currentSession.objTypes ?? {}
   const weights = currentSession.weights ?? {}
 
-  // Pre-generate objectives on first load
-  useEffect(() => {
-    const missing = allFocusIds.filter(id => !objectives[id])
-    if (missing.length > 0) {
-      const generated: Record<string, string> = {}
-      missing.forEach(id => {
-        const type = objTypes[id] ?? 'improve'
-        generated[id] = getObjectiveText(id, type, currentSession.quarter)
-      })
-      updateSession({ objectives: { ...objectives, ...generated } })
-    }
-  }, [])
-
   function getFocusLabel(focusId: string): string {
-    for (const themeId of Object.keys(currentSession.focusAreas ?? {})) {
-      const opts = getFocusOptions(themeId, person.area, person.div)
+    for (const themeId of Object.keys(currentSession!.focusAreas ?? {})) {
+      const opts = getFocusOptions(themeId, person!.area, person!.div)
       const opt = opts.find(o => o.id === focusId)
       if (opt) return opt.n
     }
@@ -38,7 +43,7 @@ export function Step7({ onBack, onNext }: { onBack: () => void; onNext: () => vo
   }
 
   function getThemeForFocus(focusId: string) {
-    for (const [themeId, ids] of Object.entries(currentSession.focusAreas ?? {})) {
+    for (const [themeId, ids] of Object.entries(currentSession!.focusAreas ?? {})) {
       if (ids.includes(focusId)) return THEMES.find(t => t.id === themeId)
     }
     return null

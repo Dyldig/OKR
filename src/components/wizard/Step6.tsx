@@ -27,8 +27,8 @@ export function Step6({ onBack, onNext }: { onBack: () => void; onNext: () => vo
   const multiSubs: Record<string, MultiSubType> = currentSession.multiSubTypes ?? {}
 
   function getFocusLabel(focusId: string): string {
-    for (const themeId of Object.keys(currentSession.focusAreas ?? {})) {
-      const opts = getFocusOptions(themeId, person.area, person.div)
+    for (const themeId of Object.keys(currentSession!.focusAreas ?? {})) {
+      const opts = getFocusOptions(themeId, person!.area, person!.div)
       const opt = opts.find(o => o.id === focusId)
       if (opt) return opt.n
     }
@@ -36,7 +36,7 @@ export function Step6({ onBack, onNext }: { onBack: () => void; onNext: () => vo
   }
 
   function getThemeForFocus(focusId: string): string {
-    for (const [themeId, ids] of Object.entries(currentSession.focusAreas ?? {})) {
+    for (const [themeId, ids] of Object.entries(currentSession!.focusAreas ?? {})) {
       if (ids.includes(focusId)) return themeId
     }
     return ''

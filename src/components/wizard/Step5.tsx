@@ -8,24 +8,26 @@ import { useEffect } from 'react'
 export function Step5({ onBack, onNext }: { onBack: () => void; onNext: () => void }) {
   const { currentSession, updateSession } = useSessionStore()
   const person = currentSession ? getTeamMember(currentSession.personId) : null
+
+  // Keep hook before early return (rules of hooks)
+  useEffect(() => {
+    if (!currentSession) return
+    const ids = Object.values(currentSession.focusAreas ?? {}).flat()
+    const w = currentSession.weights ?? {}
+    const hasWeights = ids.every(id => w[id] !== undefined)
+    if (!hasWeights && ids.length > 0) {
+      const equal = Math.floor(100 / ids.length)
+      const remainder = 100 - equal * ids.length
+      const auto: Record<string, number> = {}
+      ids.forEach((id, i) => { auto[id] = equal + (i === 0 ? remainder : 0) })
+      updateSession({ weights: auto })
+    }
+  }, [])
+
   if (!person || !currentSession) return null
 
   const allFocusIds = Object.values(currentSession.focusAreas ?? {}).flat()
   const weights: Record<string, number> = currentSession.weights ?? {}
-
-  // Auto-distribute equally on first load
-  useEffect(() => {
-    const hasWeights = allFocusIds.every(id => weights[id] !== undefined)
-    if (!hasWeights && allFocusIds.length > 0) {
-      const equal = Math.floor(100 / allFocusIds.length)
-      const remainder = 100 - equal * allFocusIds.length
-      const auto: Record<string, number> = {}
-      allFocusIds.forEach((id, i) => {
-        auto[id] = equal + (i === 0 ? remainder : 0)
-      })
-      updateSession({ weights: auto })
-    }
-  }, [])
 
   const total = allFocusIds.reduce((sum, id) => sum + (weights[id] ?? 0), 0)
   const totalColor = total === 100 ? 'text-emerald-600' : total >= 90 && total <= 110 ? 'text-amber-600' : 'text-red-500'
@@ -36,8 +38,8 @@ export function Step5({ onBack, onNext }: { onBack: () => void; onNext: () => vo
   }
 
   function getFocusLabel(focusId: string): string {
-    for (const themeId of Object.keys(currentSession.focusAreas ?? {})) {
-      const opts = getFocusOptions(themeId, person.area, person.div)
+    for (const themeId of Object.keys(currentSession!.focusAreas ?? {})) {
+      const opts = getFocusOptions(themeId, person!.area, person!.div)
       const opt = opts.find(o => o.id === focusId)
       if (opt) return opt.n
     }
@@ -45,7 +47,7 @@ export function Step5({ onBack, onNext }: { onBack: () => void; onNext: () => vo
   }
 
   function getThemeForFocus(focusId: string): string {
-    for (const [themeId, ids] of Object.entries(currentSession.focusAreas ?? {})) {
+    for (const [themeId, ids] of Object.entries(currentSession!.focusAreas ?? {})) {
       if (ids.includes(focusId)) return themeId
     }
     return ''

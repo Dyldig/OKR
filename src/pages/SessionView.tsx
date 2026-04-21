@@ -37,8 +37,8 @@ export function SessionView() {
   }
 
   function getFocusLabel(focusId: string): string {
-    for (const themeId of Object.keys(session.focusAreas ?? {})) {
-      const opts = getFocusOptions(themeId, person.area, person.div)
+    for (const themeId of Object.keys(session!.focusAreas ?? {})) {
+      const opts = getFocusOptions(themeId, person!.area, person!.div)
       const opt = opts.find(o => o.id === focusId)
       if (opt) return opt.n
     }
@@ -46,7 +46,7 @@ export function SessionView() {
   }
 
   function getThemeForFocus(focusId: string) {
-    for (const [themeId, ids] of Object.entries(session.focusAreas ?? {})) {
+    for (const [themeId, ids] of Object.entries(session!.focusAreas ?? {})) {
       if (ids.includes(focusId)) return THEMES.find(t => t.id === themeId)
     }
     return null
@@ -54,21 +54,21 @@ export function SessionView() {
 
   function openCoach() {
     const okrContext = allFocusIds.map(id => {
-      const obj = session.objectives[id] ?? ''
-      const focusKRs = session.krs[id] ?? []
+      const obj = session!.objectives[id] ?? ''
+      const focusKRs = session!.krs[id] ?? []
       return `Objective: ${obj}\nKRs:\n${focusKRs.map((kr, i) => `  ${i + 1}. ${kr.text}`).join('\n')}`
     }).join('\n\n')
-    setContext(person.id, okrContext)
+    setContext(person!.id, okrContext)
     navigate('/coach')
   }
 
   function copyAsText() {
-    const lines: string[] = [`OKR PLAN — ${person.name} | ${session.quarter}\n`]
+    const lines: string[] = [`OKR PLAN — ${person!.name} | ${session!.quarter}\n`]
     allFocusIds.forEach((focusId, i) => {
-      const obj = session.objectives[focusId] ?? ''
-      const type = session.objTypes[focusId] ?? ''
-      const weight = session.weights[focusId] ?? 0
-      const focusKRs = session.krs[focusId] ?? []
+      const obj = session!.objectives[focusId] ?? ''
+      const type = session!.objTypes[focusId] ?? ''
+      const weight = session!.weights[focusId] ?? 0
+      const focusKRs = session!.krs[focusId] ?? []
       lines.push(`OBJECTIVE ${i + 1} [${typeLabel[type]} | ${getFocusLabel(focusId)} | ${weight}%]`)
       lines.push(obj)
       lines.push('')

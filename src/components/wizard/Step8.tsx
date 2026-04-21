@@ -14,30 +14,32 @@ function makeId() {
 export function Step8({ onBack, onNext }: { onBack: () => void; onNext: () => void }) {
   const { currentSession, updateSession } = useSessionStore()
   const person = currentSession ? getTeamMember(currentSession.personId) : null
+
+  // Keep hook before early return (rules of hooks)
+  useEffect(() => {
+    if (!currentSession) return
+    const ids = Object.values(currentSession.focusAreas ?? {}).flat()
+    const existingKRs = currentSession.krs ?? {}
+    const missing = ids.filter(id => !existingKRs[id] || existingKRs[id].length === 0)
+    if (missing.length > 0) {
+      const generated: Record<string, KR[]> = {}
+      missing.forEach(id => {
+        const suggestions = getKRSuggestions(id, 4)
+        generated[id] = suggestions.map(text => ({ id: makeId(), text, placeholder: true }))
+      })
+      updateSession({ krs: { ...existingKRs, ...generated } })
+    }
+  }, [])
+
   if (!person || !currentSession) return null
 
   const allFocusIds = Object.values(currentSession.focusAreas ?? {}).flat()
   const krs: Record<string, KR[]> = currentSession.krs ?? {}
   const objTypes = currentSession.objTypes ?? {}
 
-  // Pre-generate KRs on first load
-  useEffect(() => {
-    const missing = allFocusIds.filter(id => !krs[id] || krs[id].length === 0)
-    if (missing.length > 0) {
-      const generated: Record<string, KR[]> = {}
-      missing.forEach(id => {
-        const suggestions = getKRSuggestions(id, 4)
-        generated[id] = suggestions.map(text => ({
-          id: makeId(), text, placeholder: true,
-        }))
-      })
-      updateSession({ krs: { ...krs, ...generated } })
-    }
-  }, [])
-
   function getFocusLabel(focusId: string): string {
-    for (const themeId of Object.keys(currentSession.focusAreas ?? {})) {
-      const opts = getFocusOptions(themeId, person.area, person.div)
+    for (const themeId of Object.keys(currentSession!.focusAreas ?? {})) {
+      const opts = getFocusOptions(themeId, person!.area, person!.div)
       const opt = opts.find(o => o.id === focusId)
       if (opt) return opt.n
     }
@@ -45,7 +47,7 @@ export function Step8({ onBack, onNext }: { onBack: () => void; onNext: () => vo
   }
 
   function getThemeForFocus(focusId: string) {
-    for (const [themeId, ids] of Object.entries(currentSession.focusAreas ?? {})) {
+    for (const [themeId, ids] of Object.entries(currentSession!.focusAreas ?? {})) {
       if (ids.includes(focusId)) return THEMES.find(t => t.id === themeId)
     }
     return null

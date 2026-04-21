@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useLocation, useNavigate, useBlocker } from 'react-router-dom'
+import { useLocation, useBlocker } from 'react-router-dom'
 import { useSessionStore } from '../store/sessionStore'
 import { WizardProgress } from '../components/shared/ProgressBar'
 import { Step1 } from '../components/wizard/Step1'
@@ -34,7 +34,6 @@ function JeffriesLogo() {
 export function NewSession() {
   const { currentSession, updateSession, startSession } = useSessionStore()
   const location = useLocation()
-  const navigate = useNavigate()
   const step = currentSession?.currentStep ?? 1
 
   // Pre-select person if navigated from team grid

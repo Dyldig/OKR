@@ -35,8 +35,8 @@ export function Step9({ onBack, onNext }: { onBack: () => void; onNext: () => vo
   if (allFocusIds.every(id => (krs[id] ?? []).length >= 3)) positives.push('Strong KR coverage — 3+ KRs per objective gives good measurability.')
 
   function getFocusLabel(focusId: string): string {
-    for (const themeId of Object.keys(currentSession.focusAreas ?? {})) {
-      const opts = getFocusOptions(themeId, person.area, person.div)
+    for (const themeId of Object.keys(currentSession!.focusAreas ?? {})) {
+      const opts = getFocusOptions(themeId, person!.area, person!.div)
       const opt = opts.find(o => o.id === focusId)
       if (opt) return opt.n
     }
@@ -44,7 +44,7 @@ export function Step9({ onBack, onNext }: { onBack: () => void; onNext: () => vo
   }
 
   function getThemeForFocus(focusId: string) {
-    for (const [themeId, ids] of Object.entries(currentSession.focusAreas ?? {})) {
+    for (const [themeId, ids] of Object.entries(currentSession!.focusAreas ?? {})) {
       if (ids.includes(focusId)) return THEMES.find(t => t.id === themeId)
     }
     return null

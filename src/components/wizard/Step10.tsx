@@ -26,8 +26,8 @@ export function Step10({ onBack, onNext }: { onBack: () => void; onNext: () => v
   }
 
   function getFocusLabel(focusId: string): string {
-    for (const themeId of Object.keys(currentSession.focusAreas ?? {})) {
-      const opts = getFocusOptions(themeId, person.area, person.div)
+    for (const themeId of Object.keys(currentSession!.focusAreas ?? {})) {
+      const opts = getFocusOptions(themeId, person!.area, person!.div)
       const opt = opts.find(o => o.id === focusId)
       if (opt) return opt.n
     }
@@ -35,14 +35,14 @@ export function Step10({ onBack, onNext }: { onBack: () => void; onNext: () => v
   }
 
   function getThemeForFocus(focusId: string) {
-    for (const [themeId, ids] of Object.entries(currentSession.focusAreas ?? {})) {
+    for (const [themeId, ids] of Object.entries(currentSession!.focusAreas ?? {})) {
       if (ids.includes(focusId)) return THEMES.find(t => t.id === themeId)
     }
     return null
   }
 
   function copyAsText() {
-    const lines: string[] = [`OKR PLAN — ${person.name} | ${currentSession.quarter}\n`]
+    const lines: string[] = [`OKR PLAN — ${person!.name} | ${currentSession!.quarter}\n`]
     allFocusIds.forEach((focusId, i) => {
       const obj = objectives[focusId] ?? ''
       const type = objTypes[focusId] ?? ''
@@ -51,13 +51,11 @@ export function Step10({ onBack, onNext }: { onBack: () => void; onNext: () => v
       lines.push(`OBJECTIVE ${i + 1} [${typeLabel[type]} | ${getFocusLabel(focusId)} | ${weight}%]`)
       lines.push(obj)
       lines.push('')
-      focusKRs.forEach((kr, j) => {
-        lines.push(`  KR${j + 1}: ${kr.text}`)
-      })
+      focusKRs.forEach((kr, j) => { lines.push(`  KR${j + 1}: ${kr.text}`) })
       lines.push('')
     })
-    if (currentSession.constraints) {
-      lines.push(`CONSTRAINTS / CONTEXT\n${currentSession.constraints}`)
+    if (currentSession!.constraints) {
+      lines.push(`CONSTRAINTS / CONTEXT\n${currentSession!.constraints}`)
     }
     navigator.clipboard.writeText(lines.join('\n'))
   }
@@ -73,7 +71,7 @@ export function Step10({ onBack, onNext }: { onBack: () => void; onNext: () => v
       return `Objective: ${obj}\nKRs:\n${focusKRs.map((kr, i) => `  ${i + 1}. ${kr.text}`).join('\n')}`
     }).join('\n\n')
     saveSession()
-    setContext(person.id, okrContext)
+    setContext(person!.id, okrContext)
     navigate('/coach')
   }
 
@@ -82,7 +80,7 @@ export function Step10({ onBack, onNext }: { onBack: () => void; onNext: () => v
       <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
         <div>
           <h2 className="text-xl font-semibold text-[#31261D]">Output</h2>
-          <p className="text-sm text-stone-500">Final OKR set for {person.name} — {currentSession.quarter}</p>
+          <p className="text-sm text-stone-500">Final OKR set for {person!.name} — {currentSession!.quarter}</p>
         </div>
         <div className="flex flex-wrap gap-2 no-print">
           <button onClick={copyAsText} className="px-4 py-2 text-sm border border-stone-300 rounded-lg hover:bg-stone-50 font-medium transition-colors">
@@ -135,12 +133,12 @@ export function Step10({ onBack, onNext }: { onBack: () => void; onNext: () => v
               <div className="bg-emerald-50 border-t border-emerald-100 px-4 py-3">
                 <p className="text-xs font-semibold text-emerald-700 mb-1">Rationale</p>
                 <p className="text-xs text-emerald-800">
-                  This objective addresses <strong>{getFocusLabel(focusId)}</strong> for {person.name} in {currentSession.quarter}.
+                  This objective addresses <strong>{getFocusLabel(focusId)}</strong> for {person!.name} in {currentSession!.quarter}.
                   {type === 'build' && ' Focused on establishing new capabilities or completing a defined deliverable.'}
                   {type === 'improve' && ' Aimed at measurably lifting performance from a known baseline.'}
                   {type === 'maintain' && ' Sustaining existing performance while optimising for efficiency.'}
                   {type === 'multi' && ' Part of a multi-quarter initiative — KRs reflect this quarter\'s milestone only.'}
-                  {currentSession.constraints && ` Context: ${currentSession.constraints}`}
+                  {currentSession!.constraints && ` Context: ${currentSession!.constraints}`}
                 </p>
               </div>
 
