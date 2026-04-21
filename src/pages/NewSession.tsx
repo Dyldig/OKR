@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useLocation, useBlocker } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useSessionStore } from '../store/sessionStore'
 import { WizardProgress } from '../components/shared/ProgressBar'
 import { Step1 } from '../components/wizard/Step1'
@@ -44,14 +44,17 @@ export function NewSession() {
     }
   }, [])
 
-  // Unsaved changes blocker
-  const blocker = useBlocker(
-    ({ currentLocation, nextLocation }) =>
-      currentSession != null &&
-      !currentSession.completedAt &&
-      currentLocation.pathname !== nextLocation.pathname &&
-      !nextLocation.pathname.includes('/session/')
-  )
+  // Warn on tab close / navigation away while session is in progress
+  useEffect(() => {
+    const isActive = currentSession != null && !currentSession.completedAt
+    if (!isActive) return
+    const handler = (e: BeforeUnloadEvent) => {
+      e.preventDefault()
+      e.returnValue = ''
+    }
+    window.addEventListener('beforeunload', handler)
+    return () => window.removeEventListener('beforeunload', handler)
+  }, [currentSession?.completedAt])
 
   function setStep(s: number) {
     updateSession({ currentStep: s })
@@ -110,32 +113,6 @@ export function NewSession() {
           <StepComponent onBack={back} onNext={next} />
         </div>
       </main>
-
-      {/* Unsaved changes dialog */}
-      {blocker.state === 'blocked' && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl p-6 max-w-sm w-full">
-            <h3 className="font-semibold text-[#31261D] mb-2">Leave this session?</h3>
-            <p className="text-sm text-stone-500 mb-5">
-              You have unsaved changes. Your progress up to step {step} will be lost if you leave now.
-            </p>
-            <div className="flex gap-3">
-              <button
-                onClick={() => blocker.proceed?.()}
-                className="flex-1 px-4 py-2 border border-stone-300 text-stone-600 rounded-lg text-sm hover:bg-stone-50"
-              >
-                Leave anyway
-              </button>
-              <button
-                onClick={() => blocker.reset?.()}
-                className="flex-1 px-4 py-2 bg-[#31261D] text-white rounded-lg text-sm hover:bg-[#4a3d31]"
-              >
-                Stay
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }
