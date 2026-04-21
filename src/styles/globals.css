@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+:root {
+  --jeffries-brown: #31261D;
+  --jeffries-green: #878800;
+  --jeffries-brown-light: #4a3d31;
+  --jeffries-green-light: #a5a800;
+  --jeffries-cream: #f5f0eb;
+}
+
+body {
+  background-color: #f8f5f2;
+  color: #31261D;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1ede9; }
+::-webkit-scrollbar-thumb { background: #c5b8ad; border-radius: 3px; }
+
+/* Print styles for PDF export */
+@media print {
+  .no-print { display: none !important; }
+  .print-page { page-break-after: always; }
+  body { background: white !important; }
+  header, nav, .sidebar { display: none !important; }
+}
+
+/* Typing indicator animation */
+@keyframes blink {
+  0%, 80%, 100% { opacity: 0; }
+  40% { opacity: 1; }
+}
+
+.typing-dot {
+  animation: blink 1.4s infinite both;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* Smooth transitions */
+.wizard-step-enter {
+  opacity: 0;
+  transform: translateX(20px);
+}
+.wizard-step-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.2s ease;
+}
