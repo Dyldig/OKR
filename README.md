@@ -1,73 +1,64 @@
-# React + TypeScript + Vite
+# Jeffries OKR Planner
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack OKR planning web application for Jeffries Group — Australian organics recycling and landscaping.
 
-Currently, two official plugins are available:
+## Tech stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React 19 + TypeScript (Vite 8)
+- Tailwind CSS v4
+- Zustand v5 (state + localStorage persistence)
+- React Router v7
+- Anthropic SDK (claude-sonnet-4-5, streaming)
 
-## React Compiler
+## Setup
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# 1. Install dependencies
+npm install
 
-## Expanding the ESLint configuration
+# 2. Add your Anthropic API key
+cp .env.example .env
+# Edit .env and replace `your_api_key_here` with your key
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# 3. Start the dev server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open [http://localhost:5173](http://localhost:5173)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ANTHROPIC_API_KEY
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+The coaching agent requires a valid Anthropic API key.
+
+1. Get a key from [console.anthropic.com](https://console.anthropic.com)
+2. Add it to `.env` as `VITE_ANTHROPIC_API_KEY=sk-ant-...`
+3. Restart the dev server
+
+The key is only used client-side via the Anthropic SDK's `dangerouslyAllowBrowser` mode. For production, proxy requests through a backend.
+
+## Features
+
+- **11-step OKR wizard** — person selection, context review, theme & focus area selection, weightings, objective types, objective and KR generation, review, formatted output, feedback
+- **AI coaching agent** — powered by claude-sonnet-4-5 with full context injection and streaming
+- **15 team members** — all with OKR history, coaching patterns, and strategic priorities
+- **Jeffries-specific templates** — Powerscaper, Pellets (C-100, CulChar, BioChar), JCS, Ag division, ROSS/OEE, Employment Hero, AP Link, Buckland Park, Post East Waste
+- **localStorage persistence** — sessions saved automatically, last 5 shown on dashboard
+- **PDF export** — browser print with print-optimised CSS
+- **Copy as text** — clean plain-text output for Mooncamp or email
+
+## Routes
+
+| Path | Page |
+|------|------|
+| `/` | Dashboard |
+| `/session/new` | New OKR session (11-step wizard) |
+| `/session/:id` | View a saved session |
+| `/coach` | Standalone coaching chat |
+| `/team` | Team directory |
+
+## Build
+
+```bash
+npm run build
+npm run preview
 ```
