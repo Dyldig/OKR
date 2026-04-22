@@ -28,11 +28,11 @@ export const KR_BANK: Record<string, string[]> = {
     'Achieve 90% JCS customer retention at service review or renewal point this quarter†',
   ],
   ag_rev: [
-    'Achieve [X] tonnes total Ag product sales (compost, mulch, pellets) for the quarter',
-    'Complete a minimum of [X] face-to-face customer or prospect visits in the Ag segment',
-    'Maintain up-to-date CRM records for [X]% of priority Ag accounts within 48 hours of any interaction',
-    'Deliver or support [X] seasonal promotions with documented conversion outcomes',
-    'Exceed [X] tonnes Pellet range sales (C-100, CulChar, BioChar) as individual contribution',
+    'Achieve 350 tonnes total Ag product sales (compost, mulch, pellets) for the quarter†',
+    'Complete a minimum of 15 face-to-face customer or prospect visits in the Ag segment†',
+    'Maintain up-to-date CRM records for 90% of priority Ag accounts within 48 hours of any interaction†',
+    'Deliver or support 2 seasonal promotions with documented conversion outcomes†',
+    'Exceed 40 tonnes Pellet range sales (C-100, CulChar, BioChar) as individual contribution†',
   ],
   trade: [
     'Meet with at least 9 Tier 1 and Tier 2 Trade customers during the quarter†',
@@ -42,11 +42,11 @@ export const KR_BANK: Record<string, string[]> = {
     'Maintain 85% operating day utilisation across the Trade fleet this quarter†',
   ],
   oee: [
-    'Achieve ROSS and Fertiliser Plant OEE of [X]% for the quarter',
-    'Produce [X]m³ JOC/JCMC per month consistently across all three months',
-    'Complete [X] structured machine setting trials with documented correlation to output quality',
-    'Improve plant availability by [X]% through proactive identification of known failure points',
-    'Achieve production volume of [X] tonnes at the Fertiliser Plant by end of quarter',
+    'Achieve ROSS and Fertiliser Plant OEE of 75% for the quarter†',
+    'Produce 1,800m³ JOC/JCMC per month consistently across all three months†',
+    'Complete 3 structured machine setting trials with documented correlation to output quality†',
+    'Improve plant availability by 5% through proactive identification of known failure points†',
+    'Achieve production volume of 280 tonnes at the Fertiliser Plant by end of quarter†',
   ],
   safety: [
     'Achieve 100% completion on all scheduled safety toolbox talks and planned inspections',
