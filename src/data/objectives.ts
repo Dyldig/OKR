@@ -93,7 +93,7 @@ export const OBJ_TEMPLATES: Record<string, Record<string, string>> = {
     build:    'Design and launch a structured training program that builds capability across the business in priority skill areas',
     improve:  'Improve training effectiveness in {Q} by delivering Pack D policies and measuring knowledge retention across key teams',
     maintain: 'Sustain training cadence and quality by completing all scheduled programs on time with documented attendance and outcomes',
-    multi:    'Progress the training and development program in {Q} by completing the agreed milestone toward full policy rollout and capability uplift',
+    multi:    'Progress Pack D policy rollout in {Q} by completing the agreed Employment Hero milestone and confirming team completion rates',
   },
   strat_plan: {
     build:    'Complete the 3-year strategic plan, secure Executive approval, and communicate priorities clearly to the leadership team',
@@ -138,9 +138,9 @@ export const OBJ_TEMPLATES: Record<string, Record<string, string>> = {
     multi:    'Progress risk assessment framework embedding in {Q} by completing the agreed milestone toward consistent operational use',
   },
   default: {
-    build:    'Deliver a clear, measurable outcome in this focus area by the end of {Q}',
-    improve:  'Improve performance in this focus area during {Q} with specific, trackable metrics',
-    maintain: 'Sustain and optimise performance in this focus area throughout {Q}',
+    build:    'Build the foundations in {Q} to deliver a defined Jeffries outcome — with clear ownership, milestones, and a measurable end state',
+    improve:  'Move the needle in {Q} on a priority Jeffries outcome — from a known baseline to a defined, higher-performance target',
+    maintain: 'Hold performance at target in {Q} while removing friction, improving reliability, and freeing capacity for higher-priority work',
     multi:    'Progress this initiative in {Q} by completing the agreed milestone toward the longer-term outcome',
   },
 }
