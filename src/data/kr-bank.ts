@@ -1,17 +1,17 @@
 export const KR_BANK: Record<string, string[]> = {
   powerscaper: [
-    'Deliver a minimum of [X]m³ total Powerscaper volume for the quarter',
-    'Maintain average daily Powerscaper revenue at or above $[X] per operating day',
-    'Meet with at least [X] Tier 1 and Tier 2 Trade customers during the quarter',
-    'Identify and address underperforming routes or operators within [X] days using daily earnings data',
-    'Achieve [X]% operating day utilisation across the Powerscaper fleet for the quarter',
+    'Deliver a minimum of 2,500m³ total Powerscaper volume for the quarter†',
+    'Maintain average daily Powerscaper revenue at or above $3,750 per operating day†',
+    'Meet with at least 9 Tier 1 and Tier 2 Trade customers during the quarter†',
+    'Identify and address underperforming routes or operators within 5 days using daily earnings data†',
+    'Achieve 85% operating day utilisation across the Powerscaper fleet for the quarter†',
   ],
   pellets: [
-    'Achieve $[X] in Pellet range sales (C-100, CulChar, BioChar) for the quarter',
-    'Contribute to exceeding [X] tonnes total team Pellet sales for the quarter',
-    'Conduct [X] joint visits with major distributors (e.g. Nutrien) to progress account development',
-    'Identify and document [X] new pellet market opportunities or channel prospects by end of quarter',
-    'Achieve [X]% of Pellet pipeline opportunities progressed to proposal or order stage',
+    'Achieve $85,000 in Pellet range sales (C-100, CulChar, BioChar) for the quarter†',
+    'Contribute to exceeding 120 tonnes total team Pellet sales for the quarter†',
+    'Conduct 4 joint visits with major distributors (e.g. Nutrien) to progress account development†',
+    'Identify and document 3 new pellet market opportunities or channel prospects by end of quarter†',
+    'Achieve 60% of Pellet pipeline opportunities progressed to proposal or order stage†',
   ],
   jcs_rev: [
     'Generate at least [X]m³ of new JCS bins added this quarter',
@@ -35,7 +35,7 @@ export const KR_BANK: Record<string, string[]> = {
     'Exceed [X] tonnes Pellet range sales (C-100, CulChar, BioChar) as individual contribution',
   ],
   trade: [
-    'Meet with at least [X] Tier 1 and Tier 2 Trade customers during the quarter',
+    'Meet with at least 9 Tier 1 and Tier 2 Trade customers during the quarter†',
     'Generate [X] new Trade customer proposals or site visits from outbound activity',
     'Achieve average daily Trade revenue of $[X] per operating day',
     'Follow up with at least [X] lapsed Trade customers with documented outcomes',
