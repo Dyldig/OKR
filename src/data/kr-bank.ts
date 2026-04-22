@@ -91,21 +91,21 @@ export const KR_BANK: Record<string, string[]> = {
     'Complete and share a written action plan in response to survey findings by [date]',
   ],
   contracts: [
-    'Complete rollout of updated employment contracts to [X]% of team members by [date]',
-    'Achieve sign-off on all revised contract templates from legal or HR by [date]',
+    'Complete rollout of updated employment contracts to 100% of team members by end of quarter†',
+    'Achieve sign-off on all revised contract templates from legal or HR by end of month 1†',
     'Upload all approved and signed contracts into Employment Hero by end of quarter',
     'Conduct leader briefings explaining key contract changes before rollout commences',
   ],
   recruitment: [
-    'Successfully recruit and onboard [X] new team members with all induction milestones completed on schedule',
+    'Successfully recruit and onboard 3 new team members with all induction milestones completed on schedule†',
     'Ensure all vacant roles have current and approved position descriptions before commencing recruitment',
-    'Achieve [X]-day time-to-offer from vacancy confirmation for all active roles this quarter',
+    'Achieve 14-day time-to-offer from vacancy confirmation for all active roles this quarter†',
     'Complete 30-day and 90-day check-ins for all new starters onboarded during the quarter',
   ],
   training: [
-    'Implement Pack [X] policies across the business using the Employment Hero onboarding workflow',
-    'Deliver [X] structured training sessions with attendance and knowledge check documented',
-    'Achieve [X]% team completion rate for [training program] by end of quarter',
+    'Implement Pack D policies across the business using the Employment Hero onboarding workflow†',
+    'Deliver 4 structured training sessions with attendance and knowledge check documented†',
+    'Achieve 90% team completion rate for the Pack D policy program by end of quarter†',
     'Distribute and analyse a short training needs survey across the team by [date]',
   ],
   strat_plan: [
@@ -117,8 +117,8 @@ export const KR_BANK: Record<string, string[]> = {
   post_east: [
     'Complete a comprehensive review of the current Post East Waste business structure by [date]',
     'Create and communicate a clear operational timeline for all Post East Waste milestones',
-    'Identify and resolve [X] critical dependencies blocking full operational readiness',
-    'Achieve [X]% of priority Post East Waste integration milestones completed by end of quarter',
+    'Identify and resolve 5 critical dependencies blocking full operational readiness†',
+    'Achieve 75% of priority Post East Waste integration milestones completed by end of quarter†',
   ],
   costing: [
     'Complete full cost allocation review of all manufactured products including depreciation by [date]',
